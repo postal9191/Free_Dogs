@@ -1,11 +1,13 @@
 import hashlib
 import time
 
+from requests import RequestException, Timeout
+
 # Инициализация значений
 collect_amount = 500  # Значение collectAmount
 # collect_seq_no =     # Начальное значение collectSeqNo
 secret_key = "7be2a16a82054ee58398c5edb7ac4a5a"  # Секретный ключ для хеширования
-token = 'абракаддабра'
+token = ''
 def getInfo():
     import requests
 
@@ -60,6 +62,8 @@ def sbor_coin(collect_amount, hash_code, collect_seq_no):
 
     print(response.text)
 
+    return response
+
 collect_seq_no = getInfo()
 
 # Запуск бесконечного цикла
@@ -73,11 +77,37 @@ while True:
     # Вычисление MD5-хешкода
     hash_code = hashlib.md5(input_str.encode()).hexdigest()
 
-    # Запись хешкода и значения collectSeqNo в глобальные переменные (для имитации в примере используются print)
+    # Вывод информации (можно убрать print, если не нужно выводить данные в консоль)
     print(f"Collect Amount: {collect_amount}")
     print(f"Collect Seq No: {collect_seq_no}")
     print(f"Hash Code: {hash_code}")
 
-    sbor_coin(collect_amount, hash_code, collect_seq_no)
+    try:
+        # Выполняем запрос к серверу
+        abra = sbor_coin(collect_amount, hash_code, collect_seq_no)
+
+        # Если статус-код не 200, пропускаем задержку и продолжаем цикл
+        if abra.status_code != 200:
+            print(f"Ошибка запроса, статус-код: {abra.status_code}")
+            time.sleep(10)
+            collect_seq_no = getInfo()
+            continue
+
+    except ConnectionError:
+        print("Ошибка соединения. Пробуем снова...")
+        time.sleep(10)
+        collect_seq_no = getInfo()
+        continue
+    except Timeout:
+        print("Превышено время ожидания. Пробуем снова...")
+        time.sleep(10)
+        collect_seq_no = getInfo()
+        continue
+    except RequestException as e:
+        print(f"Произошла ошибка запроса: {e}")
+        time.sleep(10)
+        collect_seq_no = getInfo()
+        continue
+
     # Задержка в 3 минуты перед следующим циклом
     time.sleep(170)  # 180 секунд = 3 минуты
