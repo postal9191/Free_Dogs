@@ -11,7 +11,7 @@ token = ''
 def getInfo():
     import requests
 
-    url = "https://api.freedurov.bot/miniapps/api/user_game_level/GetGameInfo?"
+    url = "https://api.freedogs.bot/miniapps/api/user_game_level/GetGameInfo?"
 
     payload = {}
     headers = {
@@ -19,9 +19,9 @@ def getInfo():
         'accept-language': 'ru,en;q=0.9,en-GB;q=0.8,en-US;q=0.7',
         'authorization': f'Bearer {token}',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'origin': 'https://app.freedurov.bot',
+        'origin': 'https://app.freedogs.bot',
         'priority': 'u=1, i',
-        'referer': 'https://app.freedurov.bot/',
+        'referer': 'https://app.freedogs.bot/',
         'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Microsoft Edge";v="128", "Microsoft Edge WebView2";v="128"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
@@ -38,7 +38,7 @@ def getInfo():
 def sbor_coin(collect_amount, hash_code, collect_seq_no):
     import requests
 
-    url = f"https://api.freedurov.bot/miniapps/api/user_game/collectCoin?collectAmount={collect_amount}&hashCode={hash_code}&collectSeqNo={collect_seq_no}"
+    url = f"https://api.freedogs.bot/miniapps/api/user_game/collectCoin?collectAmount={collect_amount}&hashCode={hash_code}&collectSeqNo={collect_seq_no}"
 
     payload = f"collectAmount={collect_amount}&hashCode={hash_code}&collectSeqNo={collect_seq_no}"
     headers = {
@@ -46,9 +46,9 @@ def sbor_coin(collect_amount, hash_code, collect_seq_no):
         'accept-language': 'ru,en;q=0.9,en-GB;q=0.8,en-US;q=0.7',
         'authorization': f'Bearer {token}',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'origin': 'https://app.freedurov.bot',
+        'origin': 'https://app.freedogs.bot',
         'priority': 'u=1, i',
-        'referer': 'https://app.freedurov.bot/',
+        'referer': 'https://app.freedogs.bot/',
         'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Microsoft Edge";v="128", "Microsoft Edge WebView2";v="128"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
